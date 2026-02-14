@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day Umer</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background-color: #e0f2fe; /* Light Pastel Blue */
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* Snowfall Animation */
+        .snowflake {
+            position: fixed; top: -10px; color: white;
+            user-select: none; z-index: 1000; pointer-events: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall { to { transform: translateY(105vh); } }
+
+        .main-wrapper { text-align: center; z-index: 10; width: 100%; }
+
+        /* Image Styling */
+        .image-container {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            border: 8px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background-color: #ffb5c2; /* Agar image na chale toh ye pink dikhega */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .valentine-text {
+            color: #d63384; font-size: 1.6rem; font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .open-btn {
+            background-color: #ff8fa3; color: white; border: none;
+            padding: 15px 35px; font-size: 1.1rem; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(255,143,163,0.4);
+            transition: 0.3s; font-weight: bold;
+        }
+
+        /* Letter Styling */
+        .overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px); z-index: 100;
+        }
+
+        #letterModal {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 85%; max-width: 400px;
+            background: white; padding: 30px; border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            z-index: 200; border-top: 6px solid #ff8fa3;
+            max-height: 60vh; overflow-y: auto; /* Scroll enabled */
+        }
+
+        .letter-header { font-size: 1.4rem; color: #d63384; font-weight: bold; margin-bottom: 15px; }
+        .letter-text { color: #444; line-height: 1.8; font-size: 1.05rem; white-space: pre-line; text-align: left; }
+
+        .close-btn {
+            margin-top: 20px; background: #ff8fa3; color: white;
+            border: none; padding: 12px; border-radius: 10px; width: 100%; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="snow-wrapper"></div>
+
+    <div class="main-wrapper">
+        <div class="image-container">
+            <img src="couple.jpg" alt="❤️" id="coupleImg">
+        </div>
+        
+        <div class="valentine-text">Happy Valentine's Day Umer ❤️</div>
+        <button class="open-btn" onclick="openLetter()">📩 Message For You</button>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeLetter()"></div>
+    <div id="letterModal">
+        <div class="letter-header">Meri Jaan,</div>
+        <div class="letter-text">
+            Kabhi hamari baaton mein choti choti narazgiyaan aa jati hain,
+
+            Kabhi alfaaz talkh lag jaate hain,
+
+            Aur kabhi khamoshi hamare darmiyan ek choti si deewar ban jati hai.
+
+            Magar jahan mohabbat sachi ho, wahan sab kuch khatam nahi hota.
+
+            Jab hum dubara baat karte hain,
+
+            To dil ki mohabbat pehle se bhi zyada roshan aur gehri lagti hai.
+
+            Main ladayi nahi chahti,
+
+            Aur aap ko khona mujhe sabse zyada darata hai.
+
+            Hamari har choti khushi, har hansi, har baat
+
+            Mere dil ke sabse khoobsurat lamhe hain.
+
+            <b>Hamesha yaad rakhein: Aap mere hain, aur main hamesha aap ki hoon.</b>
+
+            Hamesha aap ki, 
+            <b>Anaya</b>
+        </div>
+        <button class="close-btn" onclick="closeLetter()">Close ❤️</button>
+    </div>
+
+    <script>
+        function openLetter() {
+            document.getElementById('letterModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+        function closeLetter() {
+            document.getElementById('letterModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Snowflakes logic
+        function createSnowflake() {
+            const snow = document.createElement('div');
+            snow.classList.add('snowflake');
+            snow.innerHTML = '❄';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.fontSize = Math.random() * 10 + 15 + 'px';
+            snow.style.animationDuration = Math.random() * 3 + 4 + 's';
+            document.getElementById('snow-wrapper').appendChild(snow);
+            setTimeout(() => { snow.remove(); }, 7000);
+        }
+        setInterval(createSnowflake, 200);
+
+        // Image check: Agar image na mile toh heart icon dikhaye
+        document.getElementById('coupleImg').onerror = function() {
+            this.style.display = 'none';
+            this.parentElement.innerHTML = '<span style="font-size: 80px; color: white;">💑</span>';
+        };
+    </script>
+</body>
+</html>
